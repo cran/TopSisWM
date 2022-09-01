@@ -40,7 +40,8 @@
 
 TopSisWM <- function(TabTo=NULL,P.Pesos=NULL,solpo=NULL){
   e <- NULL
-  as.matrix(TabTo)
+  #changed to assign matrix
+  TabTo <- as.matrix(TabTo)
   if (length(solpo) != ncol(TabTo)){
     stop("The number of positive solutions differs from the number of criteria")
   }
@@ -50,7 +51,8 @@ TopSisWM <- function(TabTo=NULL,P.Pesos=NULL,solpo=NULL){
   if (length(P.Pesos)<ncol(TabTo)){
     stop("The number of weights differs from the number of criteria")
   }
-  if (sum(P.Pesos)<1){
+  #changed to approximate value
+  if (round(sum(P.Pesos),1)<1){
     stop("The total sum of the weights must be equal to 1")
   }
   if (sum(P.Pesos)>1){
@@ -96,7 +98,8 @@ TopSisWM <- function(TabTo=NULL,P.Pesos=NULL,solpo=NULL){
 
     x=0
     dip = c()
-    for (i in SolP){
+    #changed to correct loop
+    for (i in 1:nrow(TaNP)){
       x = x+1
       try(dip[x] <- (sqrt(sum((TaNP[x,]-SolP)^2))))
     }
@@ -104,7 +107,8 @@ TopSisWM <- function(TabTo=NULL,P.Pesos=NULL,solpo=NULL){
 
     x=0
     din = c()
-    for (i in SolN){
+    #changed to correct loop
+    for (i in 1:nrow(TaNP)){
       x = x+1
       try(din[x] <- (sqrt(sum((TaNP[x,]-SolN)^2))))
     }
@@ -128,6 +132,8 @@ TopSisWM <- function(TabTo=NULL,P.Pesos=NULL,solpo=NULL){
     names(lista) <- c("Normalized Table",
                       "Weighted Normalized Table",
                       "Decision Table - TOPSIS")
+    #added to organize the result
+    Prox <- Prox[order(Prox[,4]),]
 
     return(Prox)
 
