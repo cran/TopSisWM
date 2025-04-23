@@ -4,37 +4,35 @@
 \alias{TopSisWM}
 \title{Multi-Criteria Method for Decision (TOPSIS)}
 \usage{
-TopSisWM(TabTo,P.Pesos,solpo)
+TopSisWM(TabTo = NULL, P.Pesos = NULL, solpo = NULL, sort.rank = TRUE)
 }
 \arguments{
-\item{TabTo}{A table or matrix containing row and column names, containing only numeric values.}
+\item{TabTo}{A table or matrix containing row and column names, with only numeric values. Default is \code{NULL}.}
 
-\item{P.Pesos}{A vector containing the weights assigned to each criterion, where there must be a weight for each column of the table and the sum of the weights must be equal to 1.}
+\item{P.Pesos}{A vector of weights for each criterion. Must have a weight for each column of the table. The sum of weights must be 1. Default is \code{NULL}.}
 
-\item{solpo}{A vector containing the information if the respective criterion must be ideal, a maximum or minimum value, with ("+") for maximum and ("-") for minimum, must have a definition for each column.}
+\item{solpo}{A vector indicating if each criterion is to be maximized ("+") or minimized ("-"). Must match the number of columns. Default is \code{NULL}.}
+
+\item{sort.rank}{Logical. If \code{TRUE}, the result is ordered by rank. If \code{FALSE}, keeps original input order. Default is \code{TRUE}.}
 }
 \value{
-returns a table with the results of TOPSIS.
+A matrix with the results of the TOPSIS analysis, including the distance to the positive ideal solution (d+), the distance to the negative ideal solution (d-), the relative closeness (eu), and the final rank.
 }
 \description{
-Assists in the TOPSIS analysis process, designed to return at the end of the answer of the TOPSIS multicriteria analysis,  a ranking table with the best option as the analysis proposes. TOPSIS is basically a technique developed by Hwang and Yoon in 1981, starting from the point that the best alternative should be closest to the positive ideal solution and farthest from the negative one, based on several criteria to result in the best benefit. (LIU, H. et al., 2019) \url{doi:10.1016/j.agwat.2019.105787}.
+Assists in the TOPSIS analysis process, designed to return a ranking table with the best option as the analysis proposes. TOPSIS is a technique developed by Hwang and Yoon (1981), assuming the best alternative is closest to the positive ideal solution and farthest from the negative one. (LIU, H. et al., 2019) \url{doi:10.1016/j.agwat.2019.105787}.
 }
 \examples{
 data(Topex1)
 Tabela <- Topex1
 Pesos <- c(0.5,0.3,0.2)
 solucao <- c("-","-","+")
-TopSisWM(Tabela,Pesos,solucao)
+TopSisWM(Tabela, Pesos, solucao)
 
-#Important to use the parameter row.names = 1 when importing local data
-#Tabela <- read.csv("file.csv",sep=";", h=T,row.names=1)
-#Tabela <- read.table("Tabela.txt", h=T,row.names=1)
-#row.names = 1 ensures import of data with row names as fact names.
+# Important: use row.names = 1 when importing local data
+# Tabela <- read.csv("file.csv", sep=";", h=TRUE, row.names=1)
+# Tabela <- read.table("Tabela.txt", h=TRUE, row.names=1)
 
 }
 \references{
-LIU, H. et al.(2019). Optimizing irrigation frequency and amount to balance yield, fruit quality and water use efficiency of greenhouse tomato. Agricultural Water Management, v. 226, 1-11.
-}
-\author{
-Wagner Martins dos Santos
+LIU, H. et al. (2019). Optimizing irrigation frequency and amount to balance yield, fruit quality and water use efficiency of greenhouse tomato. Agricultural Water Management, 226, 1–11.
 }
